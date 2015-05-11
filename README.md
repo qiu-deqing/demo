@@ -1,4 +1,4 @@
 # demo
 各种简单demo
 
-访问[http://qiudeqing.com/demo]()
+访问[http://qiudeqing.com/demo](http://qiudeqing.com/demo)
