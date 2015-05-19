@@ -6,5 +6,35 @@
 </head>
 <body>
 
+  <div id="demo1">
+    <p>Email me at <a href="mailto:matt@example.co.uk" class="js-emaillink">matt@example.co.uk</a></p>
+
+    <p><button class="js-emailcopybtn"><img src="http://7xio0w.com1.z0.glb.clouddn.com/avatar.jpg" alt=""></button></p>
+    <script>
+    (function () {
+      var copyEmailBtn = document.querySelector('.js-emailcopybtn');
+      copyEmailBtn.addEventListener('click', function (event) {
+        // select the email link anchor text
+        var emailLink = document.querySelector('.js-emaillink');
+        var range = document.createRange();
+        range.selectNode(emailLink);
+
+        window.getSelection().addRange(range);
+
+        try {
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccess';
+          console.log('copy email command was ' + msg);
+        } catch (erro) {
+          console.log('unable to copy');
+        }
+
+        window.getSelection().removeAllRanges();
+      });
+    }());
+    </script>
+  </div>
+
+
 </body>
 </html>
