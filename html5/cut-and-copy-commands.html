@@ -3,34 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <style>
+  #demo1,
+  #demo2 {
+    margin-top: 30px;
+    border: 1px solid #ddd;
+  }
+  </style>
 </head>
 <body>
 
   <div id="demo1">
     <p>Email me at <a href="mailto:matt@example.co.uk" class="js-emaillink">matt@example.co.uk</a></p>
-
     <p><button class="js-emailcopybtn"><img src="http://7xio0w.com1.z0.glb.clouddn.com/avatar.jpg" alt=""></button></p>
     <script>
     (function () {
-      var copyEmailBtn = document.querySelector('.js-emailcopybtn');
-      copyEmailBtn.addEventListener('click', function (event) {
+
+      var copyEmailBtn =  document.querySelector('.js-emailcopybtn');
+      copyEmailBtn.addEventListener('click', function (e) {
+
         // select the email link anchor text
         var emailLink = document.querySelector('.js-emaillink');
         var range = document.createRange();
         range.selectNode(emailLink);
-
         window.getSelection().addRange(range);
 
         try {
+
+          // now that we've selected the anchor text, execute the copy command
           var successful = document.execCommand('copy');
-          var msg = successful ? 'successful' : 'unsuccess';
+          var msg = successful ? 'successful' : 'unsuccessful';
           console.log('copy email command was ' + msg);
-        } catch (erro) {
-          console.log('unable to copy');
+        } catch (err) {
+          console.log('oops, unable to copy');
         }
 
+        // remove the selections - NOTE: should use
+        // removeRange(range) when it is supported
         window.getSelection().removeAllRanges();
-      });
+      }, false);
+
+
+
+    }());
+    </script>
+  </div>
+
+
+  <div id="demo2">
+    <p><textarea class="js-cuttextarea">Hello I'm some text</textarea></p>
+    <p><button class="js-textareacutbtn" disable>Cut Textarea</button></p>
+
+    <script>
+    (function () {
+      var cutTextareaBtn = document.querySelector('.js-textareacutbtn');
+
+      cutTextareaBtn.addEventListener('click', function (event) {
+        var cutTextarea = document.querySelector('.js-cuttextarea');
+        cutTextarea.select();
+
+        try {
+          var successful = document.execCommand('cut');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Cut text is ' + msg);
+        } catch (e) {
+          console.log('cut error');
+        }
+      }, false);
     }());
     </script>
   </div>
