@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+
+<style>
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_1432227064_002895.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1432227064_002895.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1432227064_002895.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1432227064_002895.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1432227064_002895.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+/**
+ *@ name:        iconfont.css V1.1.0
+ *@ author:      一丝
+ *@ update:      2013-12-24 15:28:59
+ * 1. 防止读屏器读出无意义的图标
+ * 2. 防止 OS X 中图标视觉变粗和细节丢失的问题
+ * 3. Fiefox 25 开始支持「-moz-osx-font-smoothing:auto(默认)|grayscale」
+ * Demo: http://jsbin.com/iWItiQe/2
+ */
+.iconfont{
+    font-family: "iconfont";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    display: inline-block;
+    /* 1 */
+    speak: none;
+    /* 2 */
+    -webkit-font-smoothing: antialiased;
+    /* 3 */
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  background: #ccc;
+  margin-bottom: 5px;
+}
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.menu-item {
+  float: left;
+}
+.menu-item a {
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 20px;
+  color: #333;
+  text-decoration: none;
+  background: #eee;
+}
+.menu-item a:hover {
+  background: #ccc;
+}
+
+@media (max-width: 400px) {
+  .menu-toggle {
+    display: block;
+  }
+  .menu {
+    display: none;
+  }
+  .menu-active {
+    display: block;
+  }
+  .menu-item {
+    float: none;
+  }
+}
+</style>
+</head>
+<body>
+
+  <nav class="page-nav">
+
+    <span class="menu-toggle iconfont">&#xe600;</span>
+
+    <ul class="menu">
+      <li class="menu-item"><a href="#">AAA</a></li>
+      <li class="menu-item"><a href="#">bbb</a></li>
+      <li class="menu-item"><a href="#">CCC</a></li>
+      <li class="menu-item"><a href="#">ddd</a></li>
+    </ul>
+  </nav>
+
+  <p>Content</p>
+
+  <script>
+  (function () {
+    var toggle = document.querySelector('.menu-toggle');
+    var menu = document.querySelector('.menu');
+
+    toggle.addEventListener('click', function (e) {
+      menu.classList.toggle('menu-active');
+    }, false);
+  }());
+  </script>
+
+</body>
+</html>
