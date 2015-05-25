@@ -87,9 +87,9 @@
 
   <nav class="page-nav">
 
-    <span class="menu-toggle iconfont">&#xe600;</span>
+    <span class="menu-toggle js-menu-toggle iconfont">&#xe600;</span>
 
-    <ul class="menu">
+    <ul class="js-menu menu">
       <li class="menu-item"><a href="#">AAA</a></li>
       <li class="menu-item"><a href="#">bbb</a></li>
       <li class="menu-item"><a href="#">CCC</a></li>
@@ -101,8 +101,8 @@
 
   <script>
   (function () {
-    var toggle = document.querySelector('.menu-toggle');
-    var menu = document.querySelector('.menu');
+    var toggle = document.querySelector('.js-menu-toggle');
+    var menu = document.querySelector('.js-menu');
 
     toggle.addEventListener('click', function (e) {
       menu.classList.toggle('menu-active');
