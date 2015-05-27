@@ -2,25 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+  body {
+    min-height: 1000px;
+  }
+  </style>
 </head>
 <body>
 
   <div id="d1">
-    <iframe class="f1" src="http://qiudeqing.com" allowfullscreen="true"></iframe>
-
+    <h2>demo1</h2>
     <style>
-    #d1 .f1 {
-      border: 0;
+    #d1 iframe {
+      border: 1px solid #ccc;
+      width: 80%;
+      height: 120px;
     }
-
     </style>
-
-    <script>
-    (function () {
-      var iframe = document.querySelector('#d1 .f1');
-    }());
-    </script>
+     <iframe src="http://qiudeqing.com/html5/2015/05/25/iframe-tutorial.html" ></iframe>
   </div>
 
 </body>
