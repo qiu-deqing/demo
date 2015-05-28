@@ -24,5 +24,39 @@
      <iframe src="http://qiudeqing.com/html5/2015/05/25/iframe-tutorial.html" ></iframe>
   </div>
 
+  <div id="d2">
+    <h2>本demo展示不同方法加载iframe内的文档</h2>
+    <style>
+    #d2 iframe {
+      width: 80%;
+      height: 200px;
+    }
+    #d2 .trigger {
+      display: inline-block;
+      height: 20px;
+      line-height: 20px;
+      background: blue;
+      color: #fff;
+    }
+    </style>
+    <ul>
+      <li>使用链接的target属性加载页面: <a href="http://qiudeqing.com" target="d2frame">点击本链接,下面的iframe加载内容</a></li>
+      <li>使用JavaScript设置iframe的src加载页面: <span class="trigger">点击加载下面的iframe</span></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <iframe src="http://qiudeqing.com/html5/2015/05/25/iframe-tutorial.html" name="d2frame"></iframe>
+    <script>
+    !function () {
+      var trigger = document.querySelector('#d2 .trigger');
+      var frame = document.querySelector('#d2 iframe');
+      trigger.addEventListener('click', function (e) {
+        frame.src = 'http://qiudeqing.com';
+      }, false);
+    }();
+
+    </script>
+  </div>
+
 </body>
 </html>
