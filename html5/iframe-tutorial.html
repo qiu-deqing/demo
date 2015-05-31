@@ -8,6 +8,10 @@
   body {
     min-height: 1000px;
   }
+  iframe {
+    width: 80%;
+    border: 1px solid #ccc;
+  }
   </style>
 </head>
 <body>
@@ -42,10 +46,9 @@
     <ul>
       <li>使用链接的target属性加载页面: <a href="http://qiudeqing.com" target="d2frame">点击本链接,下面的iframe加载内容</a></li>
       <li>使用JavaScript设置iframe的src加载页面: <span class="trigger">点击加载下面的iframe</span></li>
-      <li></li>
-      <li></li>
+
     </ul>
-    <iframe src="http://qiudeqing.com/html5/2015/05/25/iframe-tutorial.html" name="d2frame"></iframe>
+    <iframe name="d2frame" src="http://quanxi613.github.io/demo/qiu/html5/iframe-tutorial.html"></iframe>
     <script>
     !function () {
       var trigger = document.querySelector('#d2 .trigger');
@@ -55,6 +58,38 @@
       }, false);
     }();
 
+    </script>
+  </div>
+
+  <div id="d3">
+    <h2>同域文档高度自适应</h2>
+    <style>
+    #d3 iframe {
+      width: 80%;
+    }
+    </style>
+    <iframe src="http://qiudeqing.com"></iframe>
+    <script>
+    !function () {
+      var iframe = document.querySelector('#d3 iframe');
+      iframe.contentWindow.addEventListener('load', function () {
+        var height = iframe.contentWindow.document.documentElement.scrollHeight;
+        iframe.height = height;
+      }, false);
+    }();
+    </script>
+  </div>
+
+  <div id="d4">
+    <h2>跨域文档高度自适应</h2>
+    <iframe src="http://127.0.0.1:8888/qiu/html5/iframe-tutorial.html" frameborder="0"></iframe>
+    <script>
+    !function () {
+      var iframe = document.querySelector('#d4 iframe');
+      window.addEventListener('message', function (e) {
+        iframe.height = e.data.height;
+      }, false);
+    }();
     </script>
   </div>
 
