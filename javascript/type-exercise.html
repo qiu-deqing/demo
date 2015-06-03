@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>打字练习</title>
+  <style>
+  #contentWrapper {
+    width: 800px;
+    margin: 0 auto;
+  }
+  </style>
+</head>
+<body>
+<div id="pageWrapper">
+  <div id="contentWrapper">
+    <article class="article">
+      <section>
+        <h2>根据提示按键</h2>
+        <div class="options">
+          <label  ><input type="checkbox" value="ctrl" checked>控制键</label>
+          <label ><input type="checkbox" value="symbol">符号键</label>
+          <label ><input type="checkbox" value="abc">字母</label>
+          <label ><input type="checkbox" value="num">数字</label>
+          <label ><input type="checkbox" value="dir">方向键</label>
+        </div>
+        <div class="article__demo">
+
+        <div id="canvasPanel" class="container">
+          <canvas id="canvasOne" width="500" height="300">
+            Your browser does not support HTML5 Canvas.
+          </canvas>
+        </div>
+
+        </div>
+      </section>
+
+    </article>
+  </div>
+
+</div>
+
+  <script>
+  window.addEventListener("load", eventWindowLoaded, false);
+
+  function eventWindowLoaded() {
+    canvasApp();
+  } // end eventWindowLoaded()
+
+  function Debugger() {} // end Debugger()
+  Debugger.log = function (message) {
+    try {
+      console.log(message);
+    } // end try
+    catch (exception) {
+      return;
+    } // end catch
+  }; // end Debugger.log()
+
+  function canvasApp() {
+    if (!canvasSupport()) {
+      return;
+    } // end if
+
+
+    var theCanvas = document.getElementById("canvasOne");
+    var context = theCanvas.getContext("2d");
+    var guesses = 0;
+    var message = "Guess The Letter From a to z";
+    var ctrlKey = ['Esc', 'Tab' , 'Cap' , 'Shift' , 'Ctrl'
+                ,  'Alt'
+                , 'Home' , 'End' , 'PageUp' , 'PageDown' , 'Backspace' , 'Delete'
+                , 'Enter' ];
+    var dir = ['Up' , 'Down' , 'Left' , 'Right' ];
+    var symbolKey = ['`', '~' , '!' , '@' , '#' , '$'
+                    , '%' , '^' , '&' , '*' , '(' , ')'
+                    , '-' , '_' , '+' , '=' , '[' , '{'
+                    , ']' , '}' , '\\' , '|' , ';' , ':'
+                    , "'" , '"' , ',' , '<' , '.' , '>' , '/'
+                    , '?'];
+    var abc = ["a", "b", "c", "d", "e", "f", "g"
+                , "h", "i", "j", "k", "l", "m", "n"
+                , "o", "p", "q", "r", "s", "t", "u"
+                , "v", "w", "x", "y", "z"];
+    var num = ['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8' , '9' ];
+    var optionMap = {
+      'ctrl': ctrlKey,
+      'symbol': symbolKey,
+      'abc': abc,
+      'num': num,
+      dir: dir
+    };
+
+    var optionsContainer = document.querySelector('.options');
+    var options = optionsContainer.querySelectorAll('input');
+    optionsContainer.addEventListener('change', onOptionChange, false);
+    var letters;
+    onOptionChange();
+    var today = new Date();
+    var letterToGuess = "";
+    var higherOrLower = "";
+    var lettersGuessed;
+    var gameOver = false;
+
+
+    initGame();
+
+
+    function onOptionChange() {
+      letters = [];
+      var i = options.length;
+      while (i--) {
+        if (options[i].checked) {
+          letters = letters.concat(optionMap[options[i].value]);
+        }
+      }
+      // eventKeyPressed();
+    }
+
+    function drawScreen() {
+      // background
+      context.fillStyle = "#FFFFAA";
+      context.fillRect(0, 0, 500, 300);
+      // box
+      context.strokeStyle = "#000000";
+      context.strokeRect(5, 5, 490, 290);
+
+      context.textBaseline = "top";
+
+      // letters guessed
+      context.fillStyle = "#FF0000";
+      context.font = "36px sans-serif";
+      context.fillText("" + letterToGuess,
+                        180, 130);
+      if (gameOver) {
+        context.fillStyle = "#FF0000";
+        context.font = "40px sans-serif";
+        context.fillText("You Got It!", 150, 180);
+      } // end if gameOver
+    } // end drawScreen()
+
+    function initGame() {
+      var letterIndex = Math.floor(Math.random() * letters.length);
+      letterToGuess = letters[letterIndex];
+      guesses = 0;
+      lettersGuessed = [];
+      gameOver = false;
+      window.addEventListener("keydown", eventKeyPressed, true);
+      drawScreen();
+    } // end initGame()
+
+    var shift = true;
+    function eventKeyPressed(e) {
+      if (!e) {
+        return;
+      }
+      e.preventDefault();
+
+      if (e.shiftKey && shift) {
+        shift = false;
+        return;
+      }
+      shift = true;
+      var letterIndex = Math.floor(Math.random() * letters.length);
+      letterToGuess = letters[letterIndex];
+      drawScreen();
+      // if (!gameOver) {
+      //   var letterPressed = String.fromCharCode(e.keyCode);
+      //   letterPressed = letterPressed.toLowerCase();
+      //   guesses++;
+      //   lettersGuessed.push(letterPressed);
+
+      //   if (letterPressed == letterToGuess) {
+      //     gameOver = true;
+      //   } // end if
+      //   else {
+      //     letterIndex = letters.indexOf(letterToGuess);
+      //     guessIndex = letters.indexOf(letterPressed);
+      //     Debugger.log(guessIndex);
+      //     if (guessIndex < 0) {
+      //       higherOrLower = "that is not a letter";
+      //     } // end if
+      //     else if (guessIndex > letterIndex) {
+      //       higherOrLower = "higher";
+      //     } // end if
+      //     else {
+      //       higherOrLower = "lower";
+      //     } // end else
+      //   } // end else
+
+      //   drawScreen();
+      // } // end if !gameOver
+    } // end eventKeyPressed()
+
+    function canvasSupport() {
+      return true;
+    } // end canvasSupport()
+
+  } // end canvasApp()
+
+
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
