@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  .example_path{
+    position:relative;
+    overflow:hidden;
+    width:530px;
+    height:30px;
+    border:3px solid #000;
+    }
+  .example_path .example_block {
+    position:absolute;
+    background-color:blue;
+    width:30px;
+    height:20px;
+    padding-top:10px;
+    text-align:center;
+    color:#fff;
+    font-size:10px;
+    white-space:nowrap;
+  }
+  </style>
+</head>
+<body>
+
+  <div id="d1">
+    <h2>点击下面的元素开始动画</h2>
+    <div class="example_path">
+      <div class="example_block"></div>
+    </div>
+    <script>
+    !function () {
+      var p = document.querySelector('#d1 .example_path');
+      var c = document.querySelector('#d1 .example_block');
+      console.log(p, c)
+      p.addEventListener('click', function () {
+        move(c);
+      }, false);
+
+      function move(elem) {
+        var left = 0;
+
+        function frame() {
+          ++left; // update parameters
+          elem.style.left = left + 'px';  // show frame
+          if (left === 100) {
+            clearInterval(id);
+          }
+        }
+          var id = setInterval(frame, 10);
+
+      }
+    }();
+    </script>
+  </div>
+
+
+  <div id="d2">
+    <h2>通用动画函数重构后的动画,点击下面的div移动元素</h2>
+    <div class="example_path">
+      <div class="example_block"></div>
+    </div>
+    <script>
+    !function () {
+      var p = document.querySelector('#d2 .example_path');
+      var c = document.querySelector('#d2 .example_block');
+      p.addEventListener('click', function () {
+
+        move(c, function (p) {
+          return p;
+        });
+
+      }, false);
+
+      function animate(opts) {
+
+        var start = new Date();
+
+        var id = setInterval(function () {
+
+          var timePassed = new Date() - start;
+          var progress = timePassed / opts.duration;
+
+          if (progress > 1) {
+            progress = 1;
+          }
+
+          var delta = opts.delta(progress);
+          opts.step(delta);
+
+          if (progress === 1) {
+            clearInterval(id);
+          }
+        }, opts.delay || 10);
+      }
+
+      function move(elem, delta, duration) {
+        var to = 500;
+
+        animate({
+          delay: 10,
+          duration: duration || 1000,
+          delta: delta,
+          step: function (delta) {
+            elem.style.left = to * delta + 'px';
+          }
+        });
+      }
+    }();
+    </script>
+  </div>
+
+  <div id="d3">
+    <h2>平方delta函数,点击下面div开始动画</h2>
+    <div class="example_path">
+      <div class="example_block"></div>
+    </div>
+    <script>
+    !function () {
+      var p = document.querySelector('#d3 .example_path');
+      var c = document.querySelector('#d3 .example_block');
+
+      p.addEventListener('click', function () {
+        move(c, quad);
+      }, false);
+
+      function animate(opts) {
+        var start = new Date();
+
+        var id = setInterval(function () {
+          var timePassed = new Date() - start;
+          var progress = timePassed / opts.duration;
+
+          if (progress > 1) {
+            progerss = 1;
+          }
+
+          var delta = opts.delta(progress);
+          opts.step(delta);
+
+          if (progress === 1) {
+            clearInterval(id);
+          }
+        }, opts.delay || 10);
+      }
+
+      function quad(progress) {
+        return Math.pow(progress, 2);
+      }
+
+      function move(elem, delta, duration) {
+        var to = 500;
+
+        animate({
+          delay: 10,
+          duration: duration || 1000,
+          delta: delta,
+          step: function (delta) {
+            elem.style.left = to * delta + 'px';
+          }
+        });
+      }
+    }();
+    </script>
+  </div>
+
+  <div id="d4">
+    <h2>圆弧变化曲线,点击下面的div开始动画</h2>
+    <div class="example_path">
+      <div class="example_block"></div>
+    </div>
+
+    <script>
+    !function () {
+      var p = document.querySelector('#d4 .example_path');
+      var c = document.querySelector('#d4 .example_block');
+
+      p.addEventListener('click', function () {
+        move(c, circ);
+      }, false);
+
+      function animate(opts) {
+        var start = new Date();
+        var id = setInterval(function () {
+          var timePassed = new Date() - start;
+          var progress = timePassed / opts.duration;
+
+          if (progress > 1) {
+            progress = 1;
+          }
+
+          var delta = opts.delta(progress);
+          opts.step(delta);
+
+          if (progress === 1) {
+            clearInterval(id);
+          }
+        }, opts.delay || 10);
+      }
+
+      function circ(progress) {
+        return 1 - Math.sin(Math.acos(progress));
+      }
+
+      function move(elem, delta, duration) {
+
+        var to = 500;
+        animate({
+          delay: 10,
+          duration: duration || 1000,
+          delta: delta,
+          step: function (delta) {
+            elem.style.left = to * delta + 'px';
+          }
+        });
+      }
+    }();
+    </script>
+  </div>
+
+  <div id="d5">
+    <h2>弓函数动画,点击下面的div触发动画</h2>
+    <div class="example_path">
+      <div class="example_block"></div>
+    </div>
+    <script>
+    !function () {
+      var p = document.querySelector('#d5 .example_path');
+      var c = document.querySelector('#d5 .example_block');
+
+      p.addEventListener('click', function () {
+        move(c, function (p) {
+          return bow(p, 1.5);
+        });
+      }, false);
+
+      function animate(opts) {
+        var start = new Date();
+
+        var id = setInterval(function () {
+          var timePassed = new Date() - start;
+          var progress = timePassed / opts.duration;
+
+          if (progress > 1) {
+            progress = 1;
+          }
+          var delta = opts.delta(progress);
+          opts.step(delta);
+
+          if (progress === 1) {
+            clearInterval(id);
+          }
+        }, opts.delay || 10);
+      }
+
+      function bow(progress, x) {
+        return Math.pow(progress, 2) * ((x + 1) * progress - x);
+      }
+
+      function move(elem, delta, duration) {
+        var to = 500;
+
+        animate({
+          delay: 10,
+          duration: duration || 1000,
+          delta: delta,
+          step: function (delta) {
+            elem.style.left = to * delta + 'px';
+          }
+        });
+      }
+    }();
+    </script>
+  </div>
+</body>
+</html>
