@@ -8,95 +8,23 @@
 </head>
 <body>
 
-<div id="a"></div>
+<style>
+.trans {
+  margin: 50px;
+  border: 1px solid #000;
+  background: blue;
+  width: 100px;
+  height: 100px;
 
-    <style>
-.example_path{
-  position:relative;
-  overflow:hidden;
-  width:530px;
-  height:30px;
-  border:3px solid #000;
-  }
-.example_path .example_block {
-  position:absolute;
-  background-color:blue;
-  width:30px;
-  height:20px;
-  padding-top:10px;
-  text-align:center;
-  color:#fff;
-  font-size:10px;
-  white-space:nowrap;
+  /*transform: rotate(30deg);*/
+  /*transform: translate(50px, 50px);*/
+  transform: scale(2);
+  transform-origin: 0 0;
 }
-    </style>
+</style>
 
-<h2>点击下面的元素开始动画</h2>
-<div class="example_path">
-  <div class="example_block"></div>
-</div>
-
-<script>
-/**
- * 通用动画函数
- * @param opts {Object} 动画所需参数
- * @param opts.delay {number} 动画两帧之间的间隔,单位为ms
- * @param opts.duration {number} 动画总时长,单位为ms
- * @param opts.delta {function} 时间进度到动画进度的映射函数,
- *  参数为[0,1]之间的时间进度,返回值为[0,1]之间的动画进度
- * @param opts.step {function} 实际执行动画帧状态修改的函数,
- *  参数为动画进度delta,然后执行所需的操作
- **/
-function animate(opts) {
-  var start = new Date();
-
-  var id = setInterval(function () {
-
-    var timePassed = new Date() - start;
-    var progress = timePassed / opts.duration;
-
-    if (progress > 1) {
-      progress = 0;
-    }
-
-    var delta = opts.delta(progress);
-    opts.step(delta);
-
-    if (progress === 1) {
-      clearInterval(id);
-    }
-  }, opts.delay || 10);
-}
-
-
-/**
- * 移动一个元素的动画
- * @param element {HTMLElement} 需要动画移动的元素
- * @param delta {function} 时间进度到动画进度的映射函数
- * @param duration {number} 动画总时长
- **/
-function move(element, delta, duration) {
-  var to = 500;
-
-  animate({
-    delay: 10,
-    duration: duration || 1000,
-    delta: delta,
-    step: function (delta) {
-      element.style.left = to * delta + 'px';
-    }
-  });
-}
-
-var p = document.querySelector('.example_path');
-var c = document.querySelector('.example_block');
-
-p.addEventListener('click', function () {
-  move(c, function (p) {
-    return p;
-  });
-}, false);
-
-</script>
+<div>sibline</div>
+<div class="trans"></div>
+<div>sibling</div>
 </body>
 </html>

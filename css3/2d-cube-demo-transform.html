@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<style>
+.cube {
+  position: relaative;
+}
+
+.side {
+  height: 95px;
+  position: absolute;
+  width: 95px;
+}
+
+.top {
+  background: #9acc53;
+  transform: rotate(-45deg) skew(15deg, 15deg);
+}
+.left {
+  background: #8ec63f;
+  transform: rotate(15deg) skew(15deg, 15deg) translate(-50%, 100%);
+}
+.right {
+  background: #80b239;
+  transform: rotate(-15deg) skew(-15deg, -15deg) translate(50%, 100%);
+}
+</style>
+
+<div class="cube">
+  <figure class="side top">1</figure>
+  <figure class="side left">2</figure>
+  <figure class="side right">3</figure>
+</div>
+
+
+<script>
+
+</script>
+</body>
+</html>
