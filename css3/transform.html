@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<style>
+body {
+  color: #fff;
+  font: 600 24px/24px "Helvetica", Arial, sans-serif;
+  margin: 12px 45px;
+}
+.spin {
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+.spin:hover {
+  animation: spin 5s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.cube {
+  position: relative;
+  width: 95px;
+}
+.side {
+  height: 95px;
+  line-height: 95px;
+  position: absolute;
+  text-align: center;
+  width: 95px;
+}
+.top {
+  background: #33cc54;
+  transform: rotate(-45deg) skew(15deg, 15deg);
+}
+.left {
+  background: #2db34a;
+  transform: rotate(15deg) skew(15deg, 15deg) translate(-50%, 100%);
+}
+.right {
+  background: #26973e;
+  transform: rotate(-15deg) skew(-15deg, -15deg) translate(50%, 100%);
+}
+</style>
+
+<div class="cube spin">
+  <div class="side top">1</div>
+  <div class="side left">2</div>
+  <div class="side right">3</div>
+</div>
+
+</body>
+</html>
