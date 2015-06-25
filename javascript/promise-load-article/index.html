@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<style>
+
+</style>
+
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script>
+
+$.ajax({
+  url: 'story.json'
+})
+.done(function (data) {
+   var a = eval("("+data+")");
+  console.log(typeof data)
+})
+
+function get(url) {
+  return new Promise(function (resolve, reject) {
+    var req = new XMLHttpRequest();
+    req.open('GET', url);
+    req.onload = function () {
+      if (req.status === 200) {
+        resolve(req.response);
+      } else {
+        reject(Error(req.statusText));
+      }
+    };
+    req.onerror = function () {
+      reject(Error('Network error'));
+    };
+    req.send();
+  });
+}
+
+function getJSON(url) {
+  return get(url).then(JSON.parse);
+}
+
+var storyPromise;
+
+function getChapter(i) {
+  storyPromise = storyPromise || getJSON('story.json');
+
+  return stroyPromise.then(function (story) {
+    return getJSON(story.chapterUrls[i]);
+  });
+}
+
+</script>
+</body>
+</html>
