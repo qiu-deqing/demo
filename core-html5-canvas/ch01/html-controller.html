@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>bouncing balls</title>
+  <style>
+  body {
+    background: #ddd;
+  }
+  #canvas {
+    margin-left: 10px;
+    margin-top: 10px;
+    background: #fff;
+    border: thin solid #aaa;
+  }
+  #glasspane {
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    padding: 0 20px 10px 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border: thin solid rgba(0, 0, 0, 0.6);
+    color: #eee;
+    font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow rgba(0, 0, 0, 0.5) 5px 5px 20px;
+  }
+  #glasspane h2 {
+    font-weight: normal;
+  }
+  #glasspane .title {
+    font-size: 2em;
+    color: rgba(255, 255, 0, 0.8);
+  }
+  #glasspane a:hover {
+    color: yellow;
+  }
+  #glasspane a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 3.5em;
+  }
+  #glasspane p {
+    margin: 10px;
+    color: rgba(65, 65, 220, 1.0);
+    font-size: 12pt;
+    font-family: Palatino, Arial, Helvetica, sans-serif;
+  }
+  </style>
+</head>
+<body>
+
+  <div id="glasspane">
+    <h2 class="title">Bouncing balls</h2>
+     <p>One hundred balls buncing</p>
+
+     <a href="" id="startButton">Start</a>
+  </div>
+
+  <canvas id="canvas" width="750" height="500"></canvas>
+
+  <script src="html-controller.js"></script>
+
+</body>
+</html>
