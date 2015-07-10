@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  body {
+    background: #ddd;
+  }
+  #canvas {
+    position: absolute;
+    left: 10px;
+    top: 1.5em;
+    margin: 20px;
+    border: thin solid #aaa;
+  }
+
+  #snapshotImageElement {
+    position: absolute;
+    left: 10px;
+    top: 1.5em;
+    margin: 20px;
+    border: thin solid #aaa;
+  }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <input type="button" id="snapshotButton" value="Take snapshot">
+  </div>
+
+  <img src="" alt="" id="snapshotImageElement">
+
+  <canvas id="canvas" width="400" height="400"></canvas>
+
+  <script src="export-image.js"></script>
+</body>
+</html>
