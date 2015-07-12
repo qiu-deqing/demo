@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  #canvas {
+    background: #eee;
+    border: thin solid cornflowerblue;
+  }
+  #radios {
+    padding: 10px;
+  }
+  </style>
+</head>
+<body>
+
+  <div id="radios">
+    <label>
+      <input type="radio" id="repeatRadio" name="patternRadio" checked>
+      repeat
+    </label>
+    <label>
+      <input type="radio" id="repeatXRadio" name="patternRadio">
+      repeat-x
+    </label>
+    <label>
+      <input type="radio" id="repeatYRadio" name="patternRadio">
+      repeat-y
+    </label>
+    <label>
+      <input type="radio" id="noRepeatRadio" name="patternRadio">
+      no repeat
+    </label>
+  </div>
+
+  <canvas id="canvas" width="450" height="275"></canvas>
+
+
+  <script src="fill-pattern.js"></script>
+
+</body>
+</html>
