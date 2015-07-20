@@ -30,7 +30,7 @@ var canvas = document.getElementById('canvas'),
 
 function drawGrid(context, color, stepx, stepy) {
   context.strokeStyle = color;
-  context.strokeWidth = 0.5;
+  context.lineWidth = 0.5;
 
   for (var i = stepx + 0.5; i < context.canvas.width; i += stepx) {
     context.beginPath();
@@ -39,5 +39,41 @@ function drawGrid(context, color, stepx, stepy) {
     context.stroke();
   }
 
-  for (var i = stepy; )
+  for (var i = stepy + 0.5; i < context.canvas.height; i += stepy) {
+    context.beginPath();
+    context.moveTo(0, i);
+    context.lineTo(context.canvas.width, i);
+    context.stroke();
+  }
+}
+
+function drawAxes() {
+  context.save();
+  context.stroekStyle = AXIS_COLOR;
+  context.lineWidth = AXIS_LINEWIDTH;
+
+  drawHorizontalAxis();
+  drawVerticalAxis();
+
+  context.lineWidth = 0.5;
+  context.lineWidth = TICKS_LINEWIDTH;
+  context.strokeStyle = TICKS_COLOR;
+
+  drawVerticalAxisTicks();
+  drawHorizontalAxisTicks();
+  context.restore();
+}
+
+function drawHorizontalAxis() {
+  context.beginPath();
+  context.moveTo(AXIS_ORIGIN.x, AXIS_ORIGIN.y);
+  context.lineTo(AXIS_RIGHT, AXIS_ORIGIN.y)
+  context.stroke();
+}
+
+function drawVerticalAxis() {
+  context.beginPath();
+  context.moveTo(AXIS_ORIGIN.x, AXIS_ORIGIN.y);
+  context.lineTo(AXIS_ORIGIN.x, AXIS_TOP);
+  context.stroke();
 }
