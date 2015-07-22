@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  body {
+    background: #ddd;
+  }
+  #controls {
+    position: absolute;
+    left: 25px;
+    top: 25px;
+  }
+  #canvas {
+    background: #fff;
+    cursor: pointer;
+    margin: 10px 0 0 10px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  </style>
+</head>
+<body>
+
+
+  <canvas id="canvas" width="800" height="800">
+    Canvas not supported
+  </canvas>
+
+  <div id="controls">
+    stroke color:
+    <select id="strokeStyleSelect">
+      <option value="red">red</option>
+      <option value="green">green</option>
+      <option value="blue">blue</option>
+    </select>
+
+    Guidewires:
+    <input type="checkbox" id="guidewireCheckbox" checked>
+    <input type="button" value="Erase all" id="eraseAllButton">
+  </div>
+
+  <script src="rubberband-line.js"></script>
+
+</body>
+</html>
