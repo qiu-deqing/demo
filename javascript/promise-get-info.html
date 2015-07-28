@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<h2>需求</h2>
+<ol>
+  <li>页面存在多个输入框,需要采集信息,输入框内容复杂,类似datepicker</li>
+  <li>大部分输入框收集信息逻辑完全相同</li>
+  <li>如何实现点击输入框,弹出信息采集框,点击确认之后将采集框获取信息填写到对应输入框</li>
+  <li>具有相同信息采集逻辑的输入框公用一个组件</li>
+</ol>
+
+<h2>案例如下</h2>
+<ol>
+  <li>页面中有两个input,需要输入规则,规则获取逻辑繁琐,交互复杂,需要特定对话框处理</li>
+  <li>focus时弹出对话框,进行交互,点击确定,获取输入,并设置对应input</li>
+  <li>两个input复用一个对话框</li>
+</ol>
+
+<h2>实现思路</h2>
+<ol>
+  <li>使用Promise,整个采集操作是一个异步,有成功和失败两种状态</li>
+  <li>信息采集框的确认按钮作为Promise的成功状态,执行resolve并返回值</li>
+  <li>信息采集框的取消或者关闭作为Promise的失败状态,执行reject</li>
+  <li>输入框focus时弹出信息采集框,将Promise的resolve和reject传递给采集框,用于返回状态</li>
+</ol>
+
+<input type="text" class="result">
+<input type="text" class="result">
+
+<div class="panel">
+  <input type="text" class="a" value="3">
+  <div>乘以</div>
+  <input type="text" class="b" value="3">作为结果
+  <div></div>
+  <button type="button" class="confirm">确定</button>
+  <button type="button" class="cancel">取消</button>
+</div>
+
+<style>
+.panel {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 300px;
+  height: 300px;
+  display: none;
+  background: #ddd;
+  border: 1px solid #ddd;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+</style>
+
+
+<script src="//cdn.bootcss.com/underscore.js/1.8.3/underscore.js"></script>
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+<script>
+var panelCtrl = {
+  panel: $('.panel'),
+  confirm: $('.confirm'),
+  cancel: $('.cancel'),
+  a: $('.a'),
+  b: $('.b'),
+
+  hide: function () {
+    this.panel.hide();
+  },
+  show: function () {
+    this.panel.show();
+  },
+  getRule: function () {
+    var a = parseFloat(panelCtrl.a.val());
+    var b = parseFloat(panelCtrl.b.val());
+    return a * b;
+  },
+
+  onConfirm: $.noop,
+  onConfirm: $.noop,
+  init: function () {
+    this.confirm.on('click', function (e) {
+      panelCtrl.onConfirm(panelCtrl.getRule());
+      panelCtrl.hide();
+    });
+    this.cancel.on('click', function (e) {
+      panelCtrl.onCancel();
+      panelCtrl.hide();
+    });
+  }
+};
+
+panelCtrl.init();
+
+function getKey() {
+  return new Promise(function (resolve, reject) {
+    panelCtrl.onConfirm = resolve;
+    panelCtrl.onCancel = reject;
+    panelCtrl.show();
+  });
+}
+
+
+
+$('.result').on('focus', function (e) {
+  var target = $(e.target);
+  getKey()
+    .then(function (rule) {
+      target.val(rule);
+    }, function (err) {
+      console.log('cancel');
+    });
+});
+
+</script>
+</body>
+</html>
