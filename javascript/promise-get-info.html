@@ -87,7 +87,7 @@ var panelCtrl = {
   },
 
   onConfirm: $.noop,
-  onConfirm: $.noop,
+  onCancel: $.noop,
   init: function () {
     this.confirm.on('click', function (e) {
       panelCtrl.onConfirm(panelCtrl.getRule());
