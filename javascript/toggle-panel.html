@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+<style>
+.container {
+  width: 300px;
+}
+.btn {
+  display: inline-block;
+  margin: 5px;
+  padding: 10px 10px 10px 25px;
+  border-radius: 8px;
+  background-color: #ddd;
+  position: relative;
+}
+.btn::before {
+  content: "去:";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 10px;
+}
+.container li {
+  height: 0;
+  overflow: hidden;
+  transition: 1s height;
+}
+.container .active {
+  height: 50px;
+}
+</style>
+
+<ul class="container">
+  <li class="step1 active">
+    这里是step1
+    <span class="btn btn-next" data-target=".step2">Step2</span>
+  </li>
+  <li class="step2">
+    <span class="btn btn-prev" data-target=".step1">Step1</span>
+    这里是step2
+    <span class="btn btn-next" data-target=".step3">Step3</span>
+  </li>
+  <li class="step3">
+    <span class="btn btn-prev" data-target=".step2">Step2</span>
+    这里是step3
+    <span class="btn btn-next" data-target=".step4">Step4</span>
+  </li>
+  <li class="step4">
+    <span class="btn btn-prev" data-target=".step3">Step3</span>
+    这里是step4
+  </li>
+</ul>
+
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script>
+
+$('.container').on('click', '.btn', function (e) {
+  var target = $(e.target);
+  var targetCls = '.container ' + target.data('target');
+  var targetPanel = $(targetCls);
+  var currentPanel = target.parent('li');
+
+  targetPanel.addClass('active');
+  currentPanel.removeClass('active');
+});
+</script>
+
+</body>
+</html>
