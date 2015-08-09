@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+<form action="#" class="user-info">
+  <div>
+    <label>姓名:<input type="text" name="name"></label>
+  </div>
+  <div>
+    <label>年龄:<input type="text" name="age"></label>
+  </div>
+  <div>
+    <label>电子邮箱<input type="text" name="email"></label>
+  </div>
+  <div>说明:
+    <textarea name="desc"></textarea>
+  </div>
+  <div>
+    <button type="submit" class="btn-submit">确定注册</button>
+  </div>
+</form>
+
+<script src="/common/js/jquery.js"></script>
+<script src="/common/js/mustache.js"></script>
+<script>
+var userManager = {
+  url: './user',
+
+  init: function () {
+    var me = this;
+
+    me.infoForm = $('.user-info');
+    me.infoForm.on('submit', me.onFormSubmit);
+  },
+
+  onFormSubmit: function (e) {
+    e.preventDefault();
+    var form = $(e.target);
+    var userInfo = userManager.getUserInfo(form);
+
+    var infoStatus = userManager.validateUserInfo(userInfo);
+
+    if (!infoStatus.ok) {
+      var statusMsg = infoStatus.details.map(function (statusItem) {
+        return statusItem.msg;
+      }).join(',');
+      console.log(statusMsg);
+      return;
+    }
+
+    var userParam = userManager.wrapUserParam(userInfo);
+
+    userManager.addUser({
+      url: userManager.url,
+      data: userParam
+    });
+  },
+
+  wrapUserParam: function (userInfo) {
+    var userParam = {
+      'user.name': userInfo.name,
+      'user.email': userInfo.email
+    };
+
+    var age = parseInt(userInfo.age);
+    userParam['user.age'] = isNaN(age) ? 1 : age;
+
+    // 如果后端要求不传这个字段,就不需要下面这个if判断了
+    // wrapUserParam只收集需要的信息并做必要转换
+    if (!userInfo.desc) {
+      userParam['user.desc'] = '这个人很懒,什么也没留下';
+    }
+
+    return userParam;
+  },
+
+  getUserInfo: function (infoForm) {
+    var infoArray = infoForm.serializeArray();
+    var userInfo = {};
+    infoArray.forEach(function (infoItem) {
+      userInfo[infoItem.name] = infoItem.value;
+    });
+    return userInfo;
+  },
+
+  validateUserInfo: function (userInfo) {
+    var infoStatus = {
+      ok: true,
+      details: []
+    };
+
+    var name = userInfo.name;
+    if (!(name && name.length <= 10)) {
+      infoStatus.ok = false;
+      infoStatus.details.push({
+        field: 'name',
+        msg: '姓名不能为空,且长度不超过10'
+      });
+    }
+
+    var age = parseInt(userInfo.age, 10);
+    if (isNaN(age) || age < 1 || age > 99) {
+      infoStatus.ok = false;
+      infoStatus.details.push({
+        field: 'age',
+        msg: '年龄取值应该在1到99之间'
+      });
+    }
+
+    // 邮箱规则测试只是用来举例
+    var email = userInfo.email;
+    if (!email || email.search(/\.com$/) === -1) {
+      infoStatus.ok = false;
+      infoStatus.details.push({
+        field: 'email',
+        msg: '电子邮箱不符合规则'
+      });
+    }
+    return infoStatus;
+  },
+
+  addUser: function (opt) {
+    $.ajax(opt)
+      .done(function (resp) {
+        console.log(resp)
+        console.log('注册成功');
+      });
+  }
+};
+
+userManager.init();
+</script>
+
+</body>
+</html>
