@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<style>
+div {
+  border-bottom: 1px dashed #ddd;
+  padding: 10px;
+}
+</style>
+
+<div id="d1">
+  <h2>选择input和textarea的全部文本</h2>
+  <input type="text" value="123456789">
+  <span class="input-select">点击选择input文本</span>
+  <textarea >123456789</textarea>
+  <span class="textarea-select">点击选择textarea文本</span>
+  <script>
+  (function () {
+    var container = document.querySelector('#d1');
+    var input = document.querySelector('#d1 input');
+    var textarea = document.querySelector('#d1 textarea');
+
+    container.addEventListener('click', function (e) {
+      var target = e.target;
+
+      if (target.classList.contains('input-select')) {
+        input.select();
+      } else if (target.classList.contains('textarea-select')) {
+        textarea.select();
+      }
+    }, false);
+  }());
+  </script>
+</div>
+
+
+
+
+
+<script>
+
+</script>
+</body>
+</html>
