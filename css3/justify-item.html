@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0, width=device-width">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+<style>
+.grid {
+  background: #ddd;
+  padding: 0 100px;
+  width: 500px;
+
+  text-align: justify;
+}
+.grid::after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+.grid-item {
+  background: purple;
+  width: 30%;
+  height: 50px;
+  margin-bottom: 50px;
+  display: inline-block;
+}
+</style>
+<div class="grid">
+  <div class="grid-item">111</div>
+  <div class="grid-item">222222222222222</div>
+  <div class="grid-item">333</div>
+  <div class="grid-item">444444444444444</div>
+  <div class="grid-item">333</div>
+  <div class="grid-item">333</div>
+  <div class="grid-item">333</div>
+  <div class="grid-item">444444444444444</div>
+</div>
+
+
+</body>
+</html>
