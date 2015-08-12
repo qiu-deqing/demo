@@ -12,6 +12,11 @@ div {
   border-bottom: 1px dashed #ddd;
   padding: 10px;
 }
+span {
+  display: inline-block;
+  line-height: 4;
+  background-color: #ddd;
+}
 </style>
 
 <div id="d1">
@@ -40,7 +45,69 @@ div {
 </div>
 
 
+<div id="d2">
+  <h2>选择input和textarea的部分文本</h2>
+  <input type="text" value="123456789">
+  <span class="input-select">点击选择input部分</span>
+  <textarea >123456789</textarea>
+  <span class="textarea-select">点击选择textarea部分文本</span>
+  <script>
+  (function () {
+    var container = document.querySelector('#d2');
+    var input = document.querySelector('#d2 input');
+    var textarea = document.querySelector('#d2 textarea');
 
+    container.addEventListener('click', function (e) {
+      var target = e.target;
+
+      if (target.classList.contains('input-select')) {
+        input.setSelectionRange(3, 5);
+      } else if (target.classList.contains('textarea-select')) {
+        textarea.setSelectionRange(3, 5);
+      }
+    }, false);
+  }());
+  </script>
+</div>
+
+
+<div id="d3">
+  <h2>选择普通元素的文本</h2>
+  <p class="para">123 456 789</p>
+  <span class="trigger">点击选择段落文本</span>
+  <script>
+  (function () {
+
+  /**
+   * 选择元素的文本
+   * @param {Element} 需要被选文本的元素
+   **/
+  function selectText(elem) {
+    var range;
+    var selection;
+
+    if (document.body.createTextRange) {
+      range = document.body.createTextRange();
+      range.moveToElementText(elem);
+      range.select();
+    } else if (window.getSelection) {
+      selection = window.getSelection();
+      range = document.createRange();
+      range.selectNodeContents(elem);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  }
+
+  var para = document.querySelector('#d3 .para');
+  var trigger = document.querySelector('#d3 .trigger');
+  trigger.addEventListener('click', function () {
+    selectText(para);
+  }, false);
+
+  }());
+  </script>
+</div>
 
 
 <script>
