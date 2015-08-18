@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0, width=device-width">
+  <title>Document</title>
+</head>
+<body>
+
+<div id="d1">
+  <style>
+  #d1 .info,
+  #d1 .trigger {
+    min-height: 30px;
+    background: #ddd;
+  }
+  </style>
+  <p class="info"></p>
+  <p class="trigger">click here to trigger event: build.qiu</p>
+  <script>
+  (function () {
+    var info = document.querySelector('#d1 .info');
+    var trigger = document.querySelector('#d1 .trigger');
+
+    trigger.addEventListener('click', function (e) {
+      var event = new Event('build.qiu');
+      info.dispatchEvent(event);
+    }, false);
+
+    info.addEventListener('build.qiu', function (e) {
+      info.textContent = 'received event: ' + e.type;
+
+    }, false);
+  }());
+  </script>
+</div>
+
+
+<div id="d2">
+  <style>
+  #d2 .info,
+  #d2 .trigger {
+    min-height: 30px;
+    background: #ddd;
+  }
+  </style>
+  <p class="info"></p>
+  <p class="trigger">click here to trigger event: build.qiu with detail data</p>
+  <script>
+  (function () {
+    var info = document.querySelector('#d2 .info');
+    var trigger = document.querySelector('#d2 .trigger');
+
+    trigger.addEventListener('click', function (e) {
+      var event = new CustomEvent('build.qiu', {detail: 'xxx'});
+      info.dispatchEvent(event);
+    }, false);
+
+    info.addEventListener('build.qiu', function (e) {
+      info.textContent = 'received event: ' + e.type + ' detail: ' + e.detail;
+
+    }, false);
+  }());
+  </script>
+</div>
+
+
+
+<div id="d3">
+  <style>
+  #d3 .info,
+  #d3 .trigger {
+    min-height: 30px;
+    background: #ddd;
+  }
+  </style>
+  <p class="info"></p>
+  <p class="trigger">click here to trigger touchstart event</p>
+  <script>
+  (function () {
+    var info = document.querySelector('#d3 .info');
+    var trigger = document.querySelector('#d3 .trigger');
+
+    trigger.addEventListener('click', function (e) {
+      var event = new CustomEvent('touchstart')
+      info.dispatchEvent(event);
+    }, false);
+
+    info.addEventListener('touchstart', function (e) {
+      info.textContent = 'received event: ' + e.type;
+
+    }, false);
+  }());
+  </script>
+</div>
+</body>
+</html>

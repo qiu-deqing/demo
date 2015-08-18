@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0, width=device-width">
+  <title>Document</title>
+</head>
+<body>
+
+<style>
+  body {
+    height: 400px;
+  }
+  #touch {
+    height: 300px;
+    line-height: 300px;
+    background: #ddd;
+  }
+</style>
+<p id="touch">touch here</p>
+<div id="info"></div>
+<script>
+var info = document.getElementById('info');
+var touch = document.getElementById('touch')
+touch.addEventListener('touchstart', function (e) {
+  if (e.touches[0] == e.targetTouches[0]) {
+    info.textContent = 'Hello Touch Events';
+  }
+  if (e.touches.length = e.targetTouches.length) {
+    info.textContent += '<br/>all points are on target element'
+  }
+  info.textContent += '<br/>' + e.touches.length;
+}, false);
+touch.addEventListener('touchend', function (e) {
+  info.textContent = 'removed: ' + e.changedTouches.length;
+  info.textContent += '<br/>remaining on element: ' + e.targetTouches.length;
+  info.textContent += '<br/> remaining on document: ' + e.touches.length
+}, false);
+</script>
+</body>
+</html>
