@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no">
+    <title>Document</title>
+</head>
+<body>
+
+<style>
+a {
+    padding: 15px 0;
+    display: block;
+    margin-bottom: 20px;
+}
+a:hover {
+    background-color: #ddd;
+}
+.disable-highlight {
+    -webkit-tap-highlight-color: transparent;
+}
+
+div:hover {
+    background-color: #ddd;
+}
+div {
+    padding: 15px 0;
+}
+</style>
+
+<a href="javascript:;">默认样式: 用户触摸到屏幕元素会有高亮颜色, 然后才是hover颜色</a>
+
+
+<a href="javascript:;" class="disable-highlight">覆盖高亮颜色为透明: 用户触摸到屏幕不会出现高亮色, 直接hover色</a>
+
+
+<div>div没有-webkit-tap-highlight-color</div>
+
+
+
+</body>
+</html>

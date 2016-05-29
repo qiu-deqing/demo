@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no">
+    <title>hover, focus状态的粘滞性</title>
+</head>
+<body>
+
+<style>
+
+.btn {
+    display: block;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #000;
+    margin-bottom: 20px;
+}
+
+.btn-focus,
+.btn:focus {
+  background-color: #333;
+
+  /* The outline parameter surpresses the border
+  color / outline when focused */
+  outline: 0;
+}
+.btn-hover,
+.btn:hover {
+  background-color: #666;
+}
+
+
+.btn-active,
+.btn:active {
+  background-color: #999;
+}
+</style>
+
+<div class="btn" tabindex="1">div button</div>
+<div class="btn btn-focus" tabindex="2">div button focus</div>
+<div class="btn btn-hover" tabindex="3">div button hover</div>
+<div class="btn btn-active" tabindex="4">div button active</div>
+
+<button class="btn" tabindex="1">button button</button>
+<button class="btn btn-focus" tabindex="2">button button focus</button>
+<button class="btn btn-hover" tabindex="3">button button hover</button>
+<button class="btn btn-active" tabindex="4">button button active</button>
+
+
+<a class="btn" tabindex="1" href="javascript:;">a button</a>
+<a class="btn btn-focus" tabindex="2" href="javascript:;">a button </a>
+<a class="btn btn-hover" tabindex="3" href="javascript:;">a button</a>
+<a class="btn btn-active" tabindex="4" href="javascript:;">a button</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    if (/iP(hone|ad)/.test(window.navigator.userAgent)) {
+        var elements = document.querySelectorAll('.btn')
+        var noop = function () {}
+        for (var i = 0; i < elements.length; ++i) {
+            elements[i].addEventListener('touchstart', noop, false)
+        }
+    }
+})
+</script>
+</body>
+</html>
